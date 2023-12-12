@@ -11,11 +11,13 @@
     # user will have the GUI interface that allows them to run things with the click of a button
     
 #scope last
+    # sever hosting ability
     #DM can interconnect will all users and request them to roll, it can project images to the users
     # game maps are live on screen and show where everyone is individually 
     # DM can control certain aspects of what is happening to the players like dispell hit points based on enemies 
 
 import random as rd
+
 
 
 class Player_Run:
@@ -30,17 +32,19 @@ class Player_Run:
   Race = ""
 
 
+
+
  # allows user to select wether or not they want to play with dice
-  Dice = False = 0;
+  Dice = False;
 
 
-    __init__():
-        
 
 
 
 
 #randomize dice function for each
+
+
 
     def roll_dice(Disadvantage = False, Advantage = False, dice_type = 20):
         if Disadvantage == True : # lower dice gets returned
@@ -61,5 +65,5 @@ class Player_Run:
                 return roll2
             
         else : #regular 1 dice roll
-            roll = rd.randrange(1,dicetype)
+            roll = rd.randrange(1,dice_type)
             return roll
