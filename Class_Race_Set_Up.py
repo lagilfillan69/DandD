@@ -9,19 +9,29 @@
 
 from dice_roll import Dice
 
+
+
+
+
 class Player_Define :
     #turn these into dictonaries
     
+
+
+
+
     Ability_Scores = dict()
+
+    Hit_Dice = {'Barbarian' : 12, 'Bard' : 8, 'Cleric' : 8, 'Druid' : 8, 'Fighter' : 10, 'Monk' : 8, 
+                'Paladin' : 10, 'Ranger' : 10, 'Rouge' : 8, 'Sorcerer' : 6, 'Warlock' : '8', 'Wizard' : 6}
+
     
     def __init__(self,Class,Race):
         Class = Class
         Race = Race
        
         #ability scores
-
         #turn these into dictonaries
-       
 
         # have user rank their traits from most important to least        
         # list should come out like...
@@ -38,18 +48,11 @@ class Player_Define :
         # assigning ability scores based on preferences
         for j in range(0,5) :
             self.Ability_Scores[remove_later_list[i]] =  Ability_Numbers[i]
-        
 
         #now using the ability scores we can calculate the ability modifiers
 
-
-
-        
-
         #throw modieiers
         self.Modifiers = dict()
-
-
 
         # strength based modifications
         str_mod = self.Calculate_Modifier_Value(self.Ability_Scores['Strength'])
@@ -94,9 +97,8 @@ class Player_Define :
         self.Modifiers['Persuasion'] = char_mod
          
         #hit points 
-        self.Max_Hit_Points = 0
-        self.Hit_Dice = 6
-        self.Armor_Class = ;
+        self.Max_Hit_Points = self.Hit_Dice[Class] + self.Modifiers['Consitution']
+        self.Armor_Class = 0
 
         #spell casters only
         self.Spell_Casting_Ability = 0;
@@ -126,6 +128,35 @@ class Player_Define :
         ability.sort()
         return(ability[1]+ability[2]+ability[3])
     
+
+
+    # Different Race Modifications
+    def Dragonborn(self):
+        #plus 2 strength
+        #plus 1 charisma
+
+    def Dwarf(self):
+        #plus 2 consitution
+
+    def Elf(self):
+        #plus 2 dexterity
+
+    def Gnome(self) :
+        #plus 2 intel
+
+    def HalfElf(self) :
+        #plus 2 charisma 
+        # plus 1 to two otherf abilties
+
+    def Halfling(self):
+        #+2 deterity 
+    
+    def HalfOrc(self):
+        #+2 strength
+        #+1 consitution
+    
+    def Human(self):
+        #+1 to all ability scores
 
     def Tiefling(self):
         #add tiefling description
