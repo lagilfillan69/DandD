@@ -1,8 +1,9 @@
 # different types of races
 
-
+    # Dragonborn, Dwarf, Elf, Gnome, HalfElf, Halfing, HalfOrc, Human, Tiefling
 
 #different types of classes
+    # Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladinm Ranger, Rouge, Sourcer, Warlock, Wizard
 
 #function to convert actual spelling of class to numberical value to allow 
 #set up to be easier 
@@ -83,8 +84,6 @@ class Player_Define :
         
         
         #now using the ability scores we can calculate the ability modifiers
-
-
         #create dicitonary to find 50 million modieiers
         self.Modifiers = dict()
 
@@ -131,6 +130,12 @@ class Player_Define :
         self.Modifiers['Performance'] = char_mod
         self.Modifiers['Persuasion'] = char_mod
          
+        #NEED USER INPUT FOR DETERMING OTHER MODIFIERS
+        #FOR EXAMPLE BARBARIAN 
+        # CHOOSES 2  Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival
+
+        
+
         #hit points 
         self.Max_Hit_Points = self.Hit_Dice[Class] + self.Modifiers['Consitution']
         #need user input on this?
@@ -213,10 +218,52 @@ class Player_Define :
         self.Ability_Scores['Charisma'] += 2
         self.Ability_Roll['Intellegence'] += 1
 
-        #and modify modifiers
 
-        
-        #calculation ability modifiers 
+#####CLASS RELATED FUNCTIONS
+  # Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladinm Ranger, Rouge, Sourcer, Warlock, Wizard
+
+    def Barbarian(self):
+
+        # modifing ability enhancements
+        print("Please Choose 2 abilties to enhance : Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival /n")
+        Choice1 = input("Choice 1 : ")
+        while(Choice1 != 'Animal Handling' | 'Athletics' | 'Intimidation' | 'Nature' | 'Perception'):
+            print("Error! Incorrect Input. Please try again. Remember, Case matters")
+            print("Please Choose 2 abilties to enhance : Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival /n")
+            Choice1 = input("Choice 1 : ")
+        Choice2 = input("Choice 2 : ")
+        while(Choice2 != 'Animal Handling' | 'Athletics' | 'Intimidation' | 'Nature' | 'Perception'):
+            print("Error! Incorrect Input. Please try again. Remember, Case matters")
+            print("Please Choose 2 abilties to enhance : Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival /n")
+            Choice2 = input("Choice 2 : ")
+        while(Choice1 == Choice2):
+            print("Your first and second choice cannot be the same, try again")
+            while(Choice2 != 'Animal Handling' | 'Athletics' | 'Intimidation' | 'Nature' | 'Perception'):
+                print("Error! Incorrect Input. Please try again. Remember, Case matters")
+                print("Please Choose 2 abilties to enhance : Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival /n")
+                Choice2 = input("Choice 2 : ")
+
+        self.Modifiers[Choice1] += 2
+        self.Modifiers[Choice2] += 2
+
+
+    def Bard()
+    def Cleric()
+    def Druid()
+    def Fighter()
+    def Monk()
+    def Paladin()
+    def Ranger()
+    def Rouge()
+    def Sourcer()
+    def Warlock()
+    def Wizard()
+
+
+    der
+
+
+
 
     def Calculate_Modifier_Value(self,score) :
         if score == 1 : 
@@ -261,19 +308,3 @@ class Player_Define :
         return self.Ability_Scores
 
         
-
-
-# nested loop code 
-#taken from stack overflow
-
-class Vividict(dict):
-    def __missing__(self, key):
-        value = self[key] = type(self)() # retain local pointer to value
-        return value                     # faster to return than dict lookup
-    
-
-#usage code
-
-#vividict = Vividict()
-#for (state, county, occupation), number in data.items():
-    #vividict[state][county][occupation] = number
