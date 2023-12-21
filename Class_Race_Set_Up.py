@@ -10,29 +10,39 @@
 from dice_roll import Dice
 
 
-
-
-
 class Player_Define :
-    #turn these into dictonaries
-    
 
-
-
-
-    Ability_Scores = dict()
 
     Hit_Dice = {'Barbarian' : 12, 'Bard' : 8, 'Cleric' : 8, 'Druid' : 8, 'Fighter' : 10, 'Monk' : 8, 
                 'Paladin' : 10, 'Ranger' : 10, 'Rouge' : 8, 'Sorcerer' : 6, 'Warlock' : '8', 'Wizard' : 6}
+    
+    Class_Modifiers = {}
+    Race_Modifiers = {'Dragonborn' : {}, 'Dwarf' : {}, 'Elf' : {}, 'Gnome' : {}, 'HalfElf' : {}, 'Halfling' : {}, 'HalfOrc' : {}, 'Human' : {}, 'Tiefling' : {}}
 
+    Race_Modifier_Data = { ('Dragonborn',  'Strength') : 0,
+                           ('Dragonborn',  'Dexterity') : 0,
+                           ('Dragonborn',  'Consitution') : 0,
+                           ('Dragonborn',  'Intellegence') : 0,
+                           ('Dragonborn',  'Wisdom') : 0,
+                           ('Dragonborn',  'Charisma') : 0,
+
+
+                           
+                           
+                           
+                           
+                           
+                           }
+    
     
     def __init__(self,Class,Race):
-        Class = Class
-        Race = Race
-       
-        #ability scores
-        #turn these into dictonaries
-
+        #class and race for internal use
+        self.Class = Class
+        self.Race = Race
+       #pre establish dictionary for ability scores and hit dice
+        self.Ability_Scores = dict()
+        
+        
         # have user rank their traits from most important to least        
         # list should come out like...
         remove_later_list = ['Strength','Dexterity','Consitution','Intellegence','Wisdom','Charisma']
@@ -42,19 +52,44 @@ class Player_Define :
         Ability_Numbers = []
         for i in range(0,3):
             Ability_Numbers[i] = self.Ability_Roll()
+        #sort from lowest to highest
         Ability_Numbers.sort()
 
         self.Ability_Scores = dict()
         # assigning ability scores based on preferences
         for j in range(0,5) :
             self.Ability_Scores[remove_later_list[i]] =  Ability_Numbers[i]
-
+        
+        #add race adjustments
+        match Race: 
+            case 'Dragonborn':
+                self.Dragonborn()
+            case 'Dwarf' :
+                self.Dwarf()
+            case 'Elf' :
+                self.Elf()
+            case 'Gnome':
+                self.Gnome()
+            case 'HalfElf' :
+                self.HalfElf(Ability_Numbers[0], Ability_Numbers[1])
+            case 'Halfling' :
+                self.Halfling
+            case 'HalfOrc' :
+                self.HalfOrc()
+            case 'Human' :
+                self.Human()
+            case 'Tiefling':
+                self.Tiefling()
+        
+        
         #now using the ability scores we can calculate the ability modifiers
 
-        #throw modieiers
+
+        #create dicitonary to find 50 million modieiers
         self.Modifiers = dict()
 
         # strength based modifications
+        #add ifs to calculte based on class
         str_mod = self.Calculate_Modifier_Value(self.Ability_Scores['Strength'])
         self.Modifiers['Strength'] = str_mod
         self.Modifiers['Athlectics'] = str_mod
@@ -98,6 +133,7 @@ class Player_Define :
          
         #hit points 
         self.Max_Hit_Points = self.Hit_Dice[Class] + self.Modifiers['Consitution']
+        #need user input on this?
         self.Armor_Class = 0
 
         #spell casters only
@@ -109,8 +145,7 @@ class Player_Define :
         self.Speed = 0;
         self.Initative = 0;
     
-        #saving throws
-
+        #saving throws - based on class
         Saving_Throws = dict()
         #self.Strength_Saving_Throw = 0;
         #self.Dexterity_Saving_Throw = 0;
@@ -120,7 +155,7 @@ class Player_Define :
         #Charisma_Saving_Throw  = 0; 
     
     
-
+    #roll 4 times and combine the highest three
     def Ability_Roll(self):
         ability = []
         for i in range(0,3):  
@@ -130,40 +165,53 @@ class Player_Define :
     
 
 
-    # Different Race Modifications
+    # Different Race Modifications -- might get rid of these, they are too small
     def Dragonborn(self):
+        self.Ability_Scores['Strength'] += 2
+        self.Ability_Scores['Charisma'] += 1
         #plus 2 strength
         #plus 1 charisma
 
     def Dwarf(self):
-        #plus 2 consitution
+        self.Ability_Scores['Consitution'] += 2
 
     def Elf(self):
+        self.Ability_Scores['Dexterity'] += 2
         #plus 2 dexterity
 
     def Gnome(self) :
         #plus 2 intel
+        self.Ability_Scores['Intellegence'] += 2
 
-    def HalfElf(self) :
+    def HalfElf(self, ability1, ability2) :
         #plus 2 charisma 
         # plus 1 to two otherf abilties
+        self.Ability_Scores['Charisma'] += 2
+        self.Ability_Scores[ability1] += 1
+        self.Ability_Scores[ability2] += 1
 
     def Halfling(self):
+        self.Ability_Scores['Dexterity'] += 2
         #+2 deterity 
     
     def HalfOrc(self):
         #+2 strength
         #+1 consitution
+        self.Ability_Scores['Strength'] +=2
+        self.Ability_Scores['Consitution'] += 1
     
     def Human(self):
+        self.Ability_Scores['Strength'] +=1
+        self.Ability_Scores['Consitution'] +=1
+        self.Ability_Scores['Dexterity'] +=1
+        self.Ability_Scores['Intellegence'] +=1
+        self.Ability_Scores['Charisma'] +=1
+        self.Ability_Scores['Wisdom'] +=1
         #+1 to all ability scores
 
     def Tiefling(self):
-        #add tiefling description
-        Speed = 30 # tiefling speed
-
-        #modify scores
-        self.Ability_Scores.update({'Charisma' : self.Ability_Scores['Charisma'] + 2, 'Intellegence' : self.Ability_Scores['Intellegence'] + 1} )
+        self.Ability_Scores['Charisma'] += 2
+        self.Ability_Roll['Intellegence'] += 1
 
         #and modify modifiers
 
@@ -215,3 +263,17 @@ class Player_Define :
         
 
 
+# nested loop code 
+#taken from stack overflow
+
+class Vividict(dict):
+    def __missing__(self, key):
+        value = self[key] = type(self)() # retain local pointer to value
+        return value                     # faster to return than dict lookup
+    
+
+#usage code
+
+#vividict = Vividict()
+#for (state, county, occupation), number in data.items():
+    #vividict[state][county][occupation] = number
