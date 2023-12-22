@@ -43,10 +43,27 @@ class Player_Define :
        #pre establish dictionary for ability scores and hit dice
         self.Ability_Scores = dict()
         
-        
-        # have user rank their traits from most important to least        
-        # list should come out like...
-        remove_later_list = ['Strength','Dexterity','Consitution','Intellegence','Wisdom','Charisma']
+
+        #add in safe guard for either ties or out of bounds numbers 
+
+        #getting user input on the distrubution of ability scores
+        #this is really clunky, how can we make this a little more automated?
+        print("Please Rank The Follow Traits from Most Important [6] to least important [1]/n")
+        print('Strength, Dexterity, Consitution, Intellegence, Wisdom, Charisma/n')
+        Strength_Position = input("On a scale of 1 to 6, Strength is : ")
+        Dexterity_Position = input("On a scale of 1 to 6, Dexterity is : ")
+        Consitution_Position = input("On a scale of 1 to 6, Consitution is : ")
+        Intellegence_Position = input("On a scale of 1 to 6, Intellegence is : ")
+        Wisdom_Position = input("On a scale of 1 to 6, Wisdom is : ")
+        Charisma_Position = input("On a scale of 1 to 6, Charisma is : ")
+
+        Ability_Ranking = []
+        Ability_Ranking[Strength_Position] = 'Strength'
+        Ability_Ranking[Dexterity_Position] = 'Dexterity'
+        Ability_Ranking[Consitution_Position] = 'Consitution'
+        Ability_Ranking[Intellegence_Position] = 'Intellegence'
+        Ability_Ranking[Wisdom_Position] = 'Wisdom'
+        Ability_Ranking[Charisma_Position] = 'Charisma'
         #where the least important trait is listed first, and most important trait is listed last
 
         # getting randomize ability score numbers
@@ -59,7 +76,7 @@ class Player_Define :
         self.Ability_Scores = dict()
         # assigning ability scores based on preferences
         for j in range(0,5) :
-            self.Ability_Scores[remove_later_list[i]] =  Ability_Numbers[i]
+            self.Ability_Scores[Ability_Ranking[i]] =  Ability_Numbers[i]
         
         #add race adjustments
         match Race: 
@@ -86,6 +103,8 @@ class Player_Define :
         #now using the ability scores we can calculate the ability modifiers
         #create dicitonary to find 50 million modieiers
         self.Modifiers = dict()
+
+        #modifiers, for now will be generic based on the main 6 skill modifiers, however, once other class traits are determined, they will change
 
         # strength based modifications
         #add ifs to calculte based on class
@@ -130,34 +149,38 @@ class Player_Define :
         self.Modifiers['Performance'] = char_mod
         self.Modifiers['Persuasion'] = char_mod
          
+
+
+        #saving throws are a dice roll used to reduce damage on your character and is a modifier to a dice value
+        # has to be calculate after modifications
+        #this is the generic, will change once the class functions are called
+        self.Saving_Throws = dict()
+        self.Saving_Throws['Strength'] = self.Modifiers['Strength']
+        self.Saving_Throws['Dexterity'] = self.Modifiers['Dexterity']
+        self.Saving_Throws['Intellegence'] = self.Modifiers['Intellegence']
+        self.Saving_Throws['Wisdom'] = self.Modifiers['Wisdom']
+        self.Saving_Throws['Charisma'] = self.Modifiers['Charisma'] 
+
+
+        
+        #This will eventually be a switch case but for now we are assuming that our player is only a barbarian
+        self.Barbarian()
+        
         #NEED USER INPUT FOR DETERMING OTHER MODIFIERS
         #FOR EXAMPLE BARBARIAN 
         # CHOOSES 2  Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival
 
-        
-
         #hit points 
         self.Max_Hit_Points = self.Hit_Dice[Class] + self.Modifiers['Consitution']
-        #need user input on this?
-        self.Armor_Class = 0
-
-        #spell casters only
-        self.Spell_Casting_Ability = 0;
-        self.Spell_Save_DC = 0;
-        self.Spell_Attack_Bonus = 0;
         
-        #random stuff
-        self.Speed = 0;
-        self.Initative = 0;
-    
-        #saving throws - based on class
-        Saving_Throws = dict()
-        #self.Strength_Saving_Throw = 0;
-        #self.Dexterity_Saving_Throw = 0;
-        #sekfConsitution_Saving_Throw  = 0;
-        #Intellegence_Saving_Throw = 0;
-        #Wisdom_Saving_Throw = 0;
-        #Charisma_Saving_Throw  = 0; 
+        #Armor class is determined by the type of armor a character wears, this requires a little more leg work so we are gonna treat this as a generic feature and assume
+        #all of our characters are not wearing armor
+        self.Armor_Class = 10 + self.Modifiers['Dexterity']
+
+        #adding spell casting abilites as add magical classes
+
+        
+      
     
     
     #roll 4 times and combine the highest three
@@ -174,19 +197,25 @@ class Player_Define :
     def Dragonborn(self):
         self.Ability_Scores['Strength'] += 2
         self.Ability_Scores['Charisma'] += 1
+        self.Speed = 30
         #plus 2 strength
         #plus 1 charisma
 
     def Dwarf(self):
         self.Ability_Scores['Consitution'] += 2
+        self.Speed = 25
 
     def Elf(self):
         self.Ability_Scores['Dexterity'] += 2
         #plus 2 dexterity
 
+        self.Speed = 30
+
     def Gnome(self) :
         #plus 2 intel
         self.Ability_Scores['Intellegence'] += 2
+        self.Speed = 25
+
 
     def HalfElf(self, ability1, ability2) :
         #plus 2 charisma 
@@ -194,17 +223,19 @@ class Player_Define :
         self.Ability_Scores['Charisma'] += 2
         self.Ability_Scores[ability1] += 1
         self.Ability_Scores[ability2] += 1
+        self.Speed = 30
 
     def Halfling(self):
         self.Ability_Scores['Dexterity'] += 2
         #+2 deterity 
+        self.Speed = 25
     
     def HalfOrc(self):
         #+2 strength
         #+1 consitution
         self.Ability_Scores['Strength'] +=2
         self.Ability_Scores['Consitution'] += 1
-    
+        self.Speed = 30
     def Human(self):
         self.Ability_Scores['Strength'] +=1
         self.Ability_Scores['Consitution'] +=1
@@ -213,11 +244,11 @@ class Player_Define :
         self.Ability_Scores['Charisma'] +=1
         self.Ability_Scores['Wisdom'] +=1
         #+1 to all ability scores
-
+        self.Speed = 30
     def Tiefling(self):
         self.Ability_Scores['Charisma'] += 2
         self.Ability_Roll['Intellegence'] += 1
-
+        self.speed = 30
 
 #####CLASS RELATED FUNCTIONS
   # Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladinm Ranger, Rouge, Sourcer, Warlock, Wizard
@@ -245,23 +276,8 @@ class Player_Define :
 
         self.Modifiers[Choice1] += 2
         self.Modifiers[Choice2] += 2
-
-
-    def Bard()
-    def Cleric()
-    def Druid()
-    def Fighter()
-    def Monk()
-    def Paladin()
-    def Ranger()
-    def Rouge()
-    def Sourcer()
-    def Warlock()
-    def Wizard()
-
-
-    der
-
+        self.Saving_Throws['Strength'] += 2
+        self.Saving_Throws['Consitution'] += 2
 
 
 
@@ -308,3 +324,6 @@ class Player_Define :
         return self.Ability_Scores
 
         
+    def Level_Up(self):
+        #empty function for now
+        #will give the ability for players to increase certain traits
