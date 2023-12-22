@@ -20,7 +20,12 @@ My purpose with developing this application is to create a hybrid experience of 
 
 ## Current Porgress 
 
-**As of 12/21/23**
+**12/22/23**
+
+Ive decided a couple of things, because the set up is taking so long time. I am going to for the sake of completetion operate under the assumption that users are only going to choose the barbarian class. Second, I've been trying to find other ways to work around this time consuming issue and I am honestly feeling stuck about the scope of this project. Like yesterday, I took a little time to explore one of the other functonalities of this program I want to include. I started reseraching TKinter to help make my GUIl. I think its important to start integrating this now because user input is so integralo to the set up of characters and having them enter text into the command line just isnt it. After 30 minutes of youtube tutoritals, I got the general gist. Hopefully will get some more work done with it today
+
+
+**12/21/23**
 
 After getting very frustrated that I was still working only on the character development portion of the game (why I chose one of the most complicated games to automate, I wonder), I decided to take a step back and do some research on server functionalilities in python. I have never worked with servers so I was interested to see how I could fit it in with my program. After garnering a suggestion from a fellow programmer, he recommended DJango for developing a non-static server. 
 
