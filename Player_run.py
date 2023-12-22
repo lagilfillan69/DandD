@@ -18,85 +18,95 @@
 
 import random as rd
 
-from Class_Race_Set_Up import Player_Define
+#from Class_Race_Set_Up import Player_Define
 import tkinter as tk
 from tkinter import ttk
+'''
+def set_dragborn():
+
+    Race.set('DragonBorn')
+
+def set_elf():
+    Race.set('Elf')
+    
+def set_halfling():
+    Race.set('Halfling')
+    
+def set_gnome():
+    Race.set('Gnome')
+    
+def set_halforc():
+    Race.set('HalfOrc')
+    
+def set_halfelf():
+    Race.set('HalfElf')
+
+def set_human():
+    Race.set('Human')
+    
+def set_tief():
+    Race.set('Teifling')
+    
+def set_dwarf():
+    Race.set('Dwarf')
+
+'''
 
 #establishing Tk window
-window = tk.TK()
+window = tk.Tk()
 #give the window TK as name
-window.titles('D and D Player Run')
+window.title('D and D Player Run')
 #establish size of window
-window.geometry('300x150')
+window.geometry('400x200')
 
 #creating widget
-title_label = ttk.Label(master = window, text = "D and D", font = 'Calibri 24 bold')
+title_label = ttk.Label(master = window, text = 'Please Select A Race : ')
 title_label.pack()
 
+"""
 #input field example
 input_frame = ttk.Frame(master=window)
-entry = ttk.Entry(master = input_frame)
-button = ttk.Button(master = input_frame, text = 'Create Character', command = function_name)
+
+
+#buttons containing different races
+
+DrgBorn = ttk.Button(master = input_frame, text = 'DragonBorn', command = set_dragborn)
+Elf = ttk.Button(master = input_frame, text = 'Elf', command = set_elf)
+Halfling = ttk.Button(master = input_frame, text = 'Halfing', command = set_halfling)
+HalfElf = ttk.Button(master = input_frame, text = 'Half-Elf', command = set_halfelf)
+Gnome = ttk.Button(master = input_frame, text = 'Gnome', command = set_gnome)
+HalfOrc = ttk.Button(master = input_frame, text = 'Half-Orc', command = set_halforc)
+Human = ttk.Button(master = input_frame, text = 'Human', command = set_human)
+Tiefling = ttk.Button(master = input_frame, text = 'Tiefling', command = set_tief)
+Dwarf = ttk.Button(master = input_frame, text = 'Dwarf', command = set_dwarf)
+
+
 
 #puts the entry field and button inside input frame box
-entry.pack(side = 'left', padx = 10)
-button.pack(side = 'left')
+DrgBorn.pack(side = 'left')
+Elf.pack(side = 'left')
+Halfling.pack(side = 'left')
+HalfElf.pack(side = 'left')
+Gnome.pack(side = 'left')
+HalfOrc.pack(side = 'left')
+Human.pack(side = 'left')
+Tiefling.pack(side = 'left')
+Dwarf.pack(side = 'left')
 
 #puts input frame box in overall window
 input_frame.pack(pady = 10)
 
 #output
-output_label = ttk.Label(master = window)
+Race = tk.StringVar
+output_label = ttk.Label(
+    master = window,
+    text = 'Race :',
+    font = 'Calibri 24',
+    textvariable= Race) 
+                       
 output_label.pack(pady = 5)
 
-
-
-
+"""
 
 #where we run the mainloop of the function
 window.mainloop()
-
-
-
-
-class Player_Run:
-
-    def Character_Create():
-        print("Please enter your chosen race")
-
-
-
-
- # allows user to select wether or not they want to play with dice
-  Dice = False;
-
-
-
-
-
-
-#randomize dice function for each
-
-
-
-    def roll_dice(Disadvantage = False, Advantage = False, dice_type = 20):
-        if Disadvantage == True : # lower dice gets returned
-            roll1 = rd.randrange(1,dice_type)
-            roll2 = rd.randrange(1,dice_type)
-            if roll1 < roll2 :
-                return roll1
-            else :
-                return roll2
-            
-
-        elif Advantage == True : #higher roll gets returned 
-            roll1 = rd.randrange(1,dice_type)
-            roll2 = rd.randrange(1,dice_type)
-            if roll1 > roll2 :
-                return roll1
-            else :
-                return roll2
-            
-        else : #regular 1 dice roll
-            roll = rd.randrange(1,dice_type)
-            return roll
