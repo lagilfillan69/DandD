@@ -21,7 +21,9 @@ import random as rd
 #from Class_Race_Set_Up import Player_Define
 import tkinter as tk
 from tkinter import ttk
-'''
+
+
+
 def set_dragborn():
 
     Race.set('DragonBorn')
@@ -50,22 +52,23 @@ def set_tief():
 def set_dwarf():
     Race.set('Dwarf')
 
-'''
+
 
 #establishing Tk window
 window = tk.Tk()
 #give the window TK as name
 window.title('D and D Player Run')
 #establish size of window
-window.geometry('400x200')
+window.geometry('500x300')
 
 #creating widget
-title_label = ttk.Label(master = window, text = 'Please Select A Race : ')
+title_label = ttk.Label(master = window, text = 'Please Select A Race : ', font= 'Calibri 24')
 title_label.pack()
 
-"""
+
 #input field example
 input_frame = ttk.Frame(master=window)
+lower_input_frame = ttk.Frame(master=window)
 
 
 #buttons containing different races
@@ -74,11 +77,11 @@ DrgBorn = ttk.Button(master = input_frame, text = 'DragonBorn', command = set_dr
 Elf = ttk.Button(master = input_frame, text = 'Elf', command = set_elf)
 Halfling = ttk.Button(master = input_frame, text = 'Halfing', command = set_halfling)
 HalfElf = ttk.Button(master = input_frame, text = 'Half-Elf', command = set_halfelf)
-Gnome = ttk.Button(master = input_frame, text = 'Gnome', command = set_gnome)
-HalfOrc = ttk.Button(master = input_frame, text = 'Half-Orc', command = set_halforc)
-Human = ttk.Button(master = input_frame, text = 'Human', command = set_human)
-Tiefling = ttk.Button(master = input_frame, text = 'Tiefling', command = set_tief)
-Dwarf = ttk.Button(master = input_frame, text = 'Dwarf', command = set_dwarf)
+Gnome = ttk.Button(master = lower_input_frame, text = 'Gnome', command = set_gnome)
+HalfOrc = ttk.Button(master = lower_input_frame, text = 'Half-Orc', command = set_halforc)
+Human = ttk.Button(master = lower_input_frame, text = 'Human', command = set_human)
+Tiefling = ttk.Button(master = lower_input_frame, text = 'Tiefling', command = set_tief)
+Dwarf = ttk.Button(master = lower_input_frame, text = 'Dwarf', command = set_dwarf)
 
 
 
@@ -87,6 +90,7 @@ DrgBorn.pack(side = 'left')
 Elf.pack(side = 'left')
 Halfling.pack(side = 'left')
 HalfElf.pack(side = 'left')
+
 Gnome.pack(side = 'left')
 HalfOrc.pack(side = 'left')
 Human.pack(side = 'left')
@@ -95,9 +99,11 @@ Dwarf.pack(side = 'left')
 
 #puts input frame box in overall window
 input_frame.pack(pady = 10)
+lower_input_frame.pack()
 
 #output
-Race = tk.StringVar
+
+Race = tk.StringVar()
 output_label = ttk.Label(
     master = window,
     text = 'Race :',
@@ -106,7 +112,6 @@ output_label = ttk.Label(
                        
 output_label.pack(pady = 5)
 
-"""
 
 #where we run the mainloop of the function
 window.mainloop()
