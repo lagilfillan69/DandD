@@ -20,6 +20,12 @@ My purpose with developing this application is to create a hybrid experience of 
 
 ## Current Porgress 
 
+**12/22/26**
+After fighting with Apple OS not liking anything that isn't apple made, I finally got tkinter up and working! After watching various youtube videos I have a very basic outline of what the GUI stucture will look like and how I can pull data from user input. I'm spending most of today mostly just writing out with pen and paper, how I want the data to flow in / my overall hierachy / UX flow . I also need to do reserach on how to do multiple pages in tkinter so that once a character is created, game play can start.
+
+[Guide to Multiple Pages tkinter](https://www.geeksforgeeks.org/tkinter-application-to-switch-between-different-page-frames/#)
+[Ultimate Beginner Tkinter Guide](https://www.youtube.com/watch?v=mop6g-c5HEY)
+
 **12/22/23**
 
 Ive decided a couple of things, because the set up is taking so long time. I am going to for the sake of completetion operate under the assumption that users are only going to choose the barbarian class. Second, I've been trying to find other ways to work around this time consuming issue and I am honestly feeling stuck about the scope of this project. Like yesterday, I took a little time to explore one of the other functonalities of this program I want to include. I started reseraching TKinter to help make my GUIl. I think its important to start integrating this now because user input is so integralo to the set up of characters and having them enter text into the command line just isnt it. After 30 minutes of youtube tutoritals, I got the general gist. Hopefully will get some more work done with it today
