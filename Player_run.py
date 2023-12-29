@@ -1,253 +1,172 @@
-# going to create a basic file where a user can keep track of there stats 
-
-#scope for now 
-    # user is able to set up there charater, and user the dice roll function to calculate runs 
-    # user will have the ability to roll for different things like "intellegence" and get automatic scoring
-    # user will be able to load stats from previously saved file
-    # user will be able to "Level Up", this is done manually for now
-
-#scope later
-    # user will be able to play based on race, subclasses of the file will help run the game from a level upstandpoint
-    # user will have the GUI interface that allows them to run things with the click of a button
-    
-#scope last
-    # sever hosting ability
-    #DM can interconnect will all users and request them to roll, it can project images to the users
-    # game maps are live on screen and show where everyone is individually 
-    # DM can control certain aspects of what is happening to the players like dispell hit points based on enemies 
-'''
-import random as rd
-
-#from Class_Race_Set_Up import Player_Define
 import tkinter as tk
 from tkinter import ttk
-
-
-
-def set_dragborn():
-    Race.set('DragonBorn')
-
-def set_elf():
-    Race.set('Elf')
-    
-def set_halfling():
-    Race.set('Halfling')
-    
-def set_gnome():
-    Race.set('Gnome')
-    
-def set_halforc():
-    Race.set('HalfOrc')
-    
-def set_halfelf():
-    Race.set('HalfElf')
-
-def set_human():
-    Race.set('Human')
-    
-def set_tief():
-    Race.set('Teifling')
-    
-def set_dwarf():
-    Race.set('Dwarf')
-
-
-
-#establishing Tk window
-window = tk.Tk()
-#give the window TK as name
-window.title('D and D Player Run')
-#establish size of window
-window.geometry('500x300')
-
-#creating widget
-title_label = ttk.Label(master = window, text = 'Please Select A Race : ', font= 'Calibri 24')
-title_label.pack()
-
-
-#input field example
-input_frame = ttk.Frame(master=window)
-lower_input_frame = ttk.Frame(master=window)
-
-
-#buttons containing different races
-
-DrgBorn = ttk.Button(master = input_frame, text = 'DragonBorn', command = set_dragborn)
-Elf = ttk.Button(master = input_frame, text = 'Elf', command = set_elf)
-Halfling = ttk.Button(master = input_frame, text = 'Halfing', command = set_halfling)
-HalfElf = ttk.Button(master = input_frame, text = 'Half-Elf', command = set_halfelf)
-Gnome = ttk.Button(master = lower_input_frame, text = 'Gnome', command = set_gnome)
-HalfOrc = ttk.Button(master = lower_input_frame, text = 'Half-Orc', command = set_halforc)
-Human = ttk.Button(master = lower_input_frame, text = 'Human', command = set_human)
-Tiefling = ttk.Button(master = lower_input_frame, text = 'Tiefling', command = set_tief)
-Dwarf = ttk.Button(master = lower_input_frame, text = 'Dwarf', command = set_dwarf)
-
-
-
-#puts the entry field and button inside input frame box
-DrgBorn.pack(side = 'left')
-Elf.pack(side = 'left')
-Halfling.pack(side = 'left')
-HalfElf.pack(side = 'left')
-
-Gnome.pack(side = 'left')
-HalfOrc.pack(side = 'left')
-Human.pack(side = 'left')
-Tiefling.pack(side = 'left')
-Dwarf.pack(side = 'left')
-
-#puts input frame box in overall window
-input_frame.pack(pady = 10)
-lower_input_frame.pack()
-
-#output
-
-Race = tk.StringVar()
-output_label = ttk.Label(
-    master = window,
-    text = 'Race :',
-    font = 'Calibri 24',
-    textvariable= Race) 
-                       
-output_label.pack(pady = 5)
-
-
-#where we run the mainloop of the function
-window.mainloop()
-
-
-'''
-
-import tkinter as tk
-from tkinter import ttk
-
-
 
 
 LARGEFONT =("Verdana", 35)
 
-class tkinterApp(tk.Tk):
-	
-	# __init__ function for class tkinterApp 
-	def __init__(self, *args, **kwargs): 
-		
-		# __init__ function for class Tk
-		tk.Tk.__init__(self, *args, **kwargs)
-		
-		# creating a container
-		container = tk.Frame(self) 
-		container.pack(side = "top", fill = "both", expand = True) 
+Race = ''
+Class = ''
 
-		container.grid_rowconfigure(0, weight = 1)
-		container.grid_columnconfigure(0, weight = 1)
+class D_and_D_App(tk.Tk) :
+   
+    def __init__(self, *args, **kwargs) :
+        # __init__ function for class Tk
+        tk.Tk.__init__(self, *args, **kwargs)
 
-		# initializing frames to an empty array
-		self.frames = {} 
+        #creating a container 
+        container = tk.Frame(self)
+        container.pack(side = "top", fill = "both", expand = True)
 
-		# iterating through a tuple consisting
-		# of the different page layouts
-		for F in (StartPage, Page1, Page2):
+        container.grid_rowconfigure(0, weight = 1)
+        container.grid_columnconfigure(0, weight = 1)
 
-			frame = F(container, self)
+        #initialzing frames to an empty array
+        self.frames = {}
 
-			# initializing frame of that object from
-			# startpage, page1, page2 respectively with 
-			# for loop
-			self.frames[F] = frame 
+        # iterating through differnt pages
 
-			frame.grid(row = 0, column = 0, sticky ="nsew")
+        for F in (StartPage, Page1, Page2):
 
-		self.show_frame(StartPage)
+            frame = F(container, self)
 
-	# to display the current frame passed as
-	# parameter
-	def show_frame(self, cont):
-		frame = self.frames[cont]
-		frame.tkraise()
+            self.frames[F] = frame
 
-# first window frame startpage
+            frame.grid(row = 0, column = 0, sticky = "nsew")
+
+
+        self.show_frame(StartPage)
+
+    def show_frame(self, cont, Race, Class):
+        Race = Race
+        Class = Class
+        frame = self.frames[cont]
+        frame.tkraise()
+        
 
 class StartPage(tk.Frame):
-	def __init__(self, parent, controller): 
-		Race = tk.StringVar()
-		tk.Frame.__init__(self, parent)
-		title_label = ttk.Label(self, text = 'Please Select A Race : ', font= 'Calibri 24')
-		title_label.pack() 
-		input_frame = ttk.Frame(self)
-		lower_input_frame = ttk.Frame(master=self)
-		DrgBorn = ttk.Button(master = input_frame, text = 'DragonBorn', command = self.set_dragborn)
-		Elf = ttk.Button(master = input_frame, text = 'Elf', command = self.set_elf)
-		Halfling = ttk.Button(master = input_frame, text = 'Halfing', command = self.set_halfling)
-		HalfElf = ttk.Button(master = input_frame, text = 'Half-Elf', command = self.set_halfelf)
-		Gnome = ttk.Button(master = lower_input_frame, text = 'Gnome', command = self.set_gnome)
-		HalfOrc = ttk.Button(master = lower_input_frame, text = 'Half-Orc', command = self.set_halforc)
-		Human = ttk.Button(master = lower_input_frame, text = 'Human', command = self.set_human)
-		Tiefling = ttk.Button(master = lower_input_frame, text = 'Tiefling', command = self.set_tief)
-		Dwarf = ttk.Button(master = lower_input_frame, text = 'Dwarf', command = self.set_dwarf)
-		DrgBorn.pack(side = 'left')
-		Elf.pack(side = 'left')
-		Halfling.pack(side = 'left')
-		HalfElf.pack(side = 'left')
-		Gnome.pack(side = 'left')
-		HalfOrc.pack(side = 'left')
-		Human.pack(side = 'left')
-		Tiefling.pack(side = 'left')
-		Dwarf.pack(side = 'left')
-		input_frame.pack(pady = 10)
-		lower_input_frame.pack()
-		self.Race = tk.StringVar()
-		output_label = ttk.Label(master = self,
+    def __init__(self, parent, controller):
+        #selection varibles
+        self.Race = tk.StringVar()
+        self.Class = tk.StringVar()
+
+        #creating TK frame
+        tk.Frame.__init__(self, parent)
+        title_label = ttk.Label(self, text = 'Please Select A Race :', font = 'Calibri 24')
+        title_label.pack()
+
+        #creating widgets to hold buttons
+        race_top = ttk.Frame(master = self)
+        race_lower = ttk.Frame(master = self)
+        class_top = ttk.Frame(master = self)
+        class_lower = ttk.Frame(master = self)
+        
+        #creating selection buttons for race
+        DB = ttk.Button(master = race_top, text = 'DragonBorn', command = self.set_dragonborn)
+        ELF = ttk.Button(master = race_top, text = 'Elf', command = self.set_elf)
+        HL = ttk.Button(master = race_top, text = 'Halfling', command = self.set_halfling)
+        HE = ttk.Button(master = race_top, text = 'HalfElf', command = self.set_halfelf)
+        GN = ttk.Button(master = race_top, text = 'Gnome', command = self.set_gnome)
+        HO = ttk.Button(master = race_lower, text = 'HalfOrc', command = self.set_halforc)
+        HM = ttk.Button(master = race_lower, text = 'Human', command = self.set_human)
+        TF = ttk.Button(master = race_lower, text = 'Tiefling', command = self.set_tief)
+        DW = ttk.Button(master = race_lower, text = 'Dwarf', command = self.set_dwarf)
+        
+        #packing buttonbs for race
+        DB.pack(side='left')
+        ELF.pack(side='left')
+        HL.pack(side='left')
+        HE.pack(side='left')
+        GN.pack(side='left')
+        HO.pack(side='left')
+        HM.pack(side='left')
+        TF.pack(side='left')
+        TF.pack(side='left')
+        DW.pack(side='left')
+        race_top.pack()
+        race_lower.pack()
+
+        # output of class selection
+        race_output = ttk.Frame(master=self)
+        Race_pre_label = ttk.Label(master = race_output, text = 'Race Selected: ',font =  'Calibri 16')
+        Race_label = ttk.Label(master = race_output,
             text = 'Race :',
-            font =  'Calibri 24',
+            font =  'Calibri 16',
             textvariable= self.Race) 
-		output_label.pack(pady = 5)
+        Race_pre_label.pack(side='left')
+        Race_label.pack(side = 'left')
+       
+        race_output.pack(pady=10)
 
-		button1 = ttk.Button(self, text ="Page 1",
-		command = lambda : controller.show_frame(Page1))
+        # label for class selection
+        title_label = ttk.Label(self, text = 'Please Select A Class :', font='Calibri 24')
+        title_label.pack() 
+
+        #creating selection button for class
+        BB = ttk.Button(master = class_top, text = 'Barbarian', command = self.set_barbarian)
+        BB.pack(side = 'top')
+        class_top.pack()
+
+        #Class output
+        class_output = ttk.Frame(master=self)
+        Class_pre_label = ttk.Label(master=class_output,text = 'Class Selected : ', font = 'Calibri 16')
+        Class_label = ttk.Label(master = class_output,
+            text = '',
+            font =  'Calibri 16',
+            textvariable= self.Class) 
+        Class_pre_label.pack(side = 'left')
+        Class_label.pack(side = 'left')
+        class_output.pack(pady=10)
+
+        #transition to next page 
+        Finish = ttk.Button(self, text ="Create Character",
+							command = lambda : controller.show_frame(Page1))
+        Finish.pack()
 	
-		# putting the button in its place by
-		# using grid
-		button1.pack(padx = 10, pady = 10)
 
-		## button to show frame 2 with text layout2
-		button2 = ttk.Button(self, text ="Page 2",
-		command = lambda : controller.show_frame(Page2))
+
+
+    def set_dragonborn(self):
+        self.Race.set('DragonBorn')
 	
-		# putting the button in its place by
-		# using grid
-		button2.pack(padx = 10, pady = 10)
-		
-	def set_dragborn(self):
-		self.Race.set('DragonBorn')
-	def set_elf(self):
-		self.Race.set('Elf')
-	def set_halfling(self): 
-		self.Race.set('Halfling')
-	def set_gnome(self):
-		self.Race.set('Gnome')
-	def set_halforc(self):
-		self.Race.set('HalfOrc')
-	def set_halfelf(self):
-		self.Race.set('HalfElf')
-	def set_human(self):
-		self.Race.set('Human')
-	def set_tief(self):
-		self.Race.set('Teifling')
-	def set_dwarf(self):
-		self.Race.set('Dwarf')
+    def set_elf(self):
+        self.Race.set('Elf')
+        
+    def set_halfling(self): 
+        self.Race.set('Halfling')
+	
+    def set_gnome(self):
+        self.Race.set('Gnome')
+        
+    def set_halforc(self):
+        self.Race.set('HalfOrc')
+        
+    def set_halfelf(self):
+        self.Race.set('HalfElf')
+        
+    def set_human(self):
+        self.Race.set('Human')
+        
+    def set_tief(self):
+        self.Race.set('Teifling')
+        
+    def set_dwarf(self):
+        self.Race.set('Dwarf')
 
-
-		
-
+    def set_barbarian(self):
+        self.Class.set("Barbarian")
 
 # second window frame page1 
 class Page1(tk.Frame):
-	
 	def __init__(self, parent, controller):
 		
 		tk.Frame.__init__(self, parent)
-		label = ttk.Label(self, text ="Page 1", font = LARGEFONT)
-		label.grid(row = 0, column = 4, padx = 10, pady = 10)
+		label = ttk.Label(self, text ="Character Create", font = LARGEFONT)
+                
+        #selecting traits in order
+
+
+
+
 
 		# button to show frame 2 with text
 		# layout2
@@ -297,7 +216,6 @@ class Page2(tk.Frame):
 
 
 # Driver Code
-app = tkinterApp()
+app = D_and_D_App()
 app.mainloop()
-
 
