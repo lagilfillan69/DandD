@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from Class_Race_Set_Up import Player_Define
 
 
 LARGEFONT =("Verdana", 35)
@@ -26,19 +27,14 @@ class D_and_D_App(tk.Tk) :
         # iterating through differnt pages
 
         for F in (StartPage, Page1, Page2):
-
             frame = F(container, self)
-
             self.frames[F] = frame
-
             frame.grid(row = 0, column = 0, sticky = "nsew")
 
 
         self.show_frame(StartPage)
 
-    def show_frame(self, cont, Race, Class):
-        Race = Race
-        Class = Class
+    def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
         
@@ -121,9 +117,10 @@ class StartPage(tk.Frame):
         Finish = ttk.Button(self, text ="Create Character",
 							command = lambda : controller.show_frame(Page1))
         Finish.pack()
+        Race = self.Race
+        Class = self.Class
+        
 	
-
-
 
     def set_dragonborn(self):
         self.Race.set('DragonBorn')
@@ -155,36 +152,38 @@ class StartPage(tk.Frame):
     def set_barbarian(self):
         self.Class.set("Barbarian")
 
-# second window frame page1 
-class Page1(tk.Frame):
-	def __init__(self, parent, controller):
-		
-		tk.Frame.__init__(self, parent)
-		label = ttk.Label(self, text ="Character Create", font = LARGEFONT)
-                
-        #selecting traits in order
 
 
+class Page1(tk.Frame): 
+    # right now we are only assuming the creation of a barbarian creature
+    def __init__(self,parent,controller): 
+        Char = Player_Define(Class,Race)
+        tk.Frame.__init__(self, parent)
+        label = ttk.Label(self, text ="Character Create", font = LARGEFONT)
+        # pack this
 
+        hitdice = ttk.Label(self, text = "Hit Dice : " & str(Char.Get_Hit_Points()))
+
+        
 
 
 		# button to show frame 2 with text
 		# layout2
-		button1 = ttk.Button(self, text ="StartPage",
+        button1 = ttk.Button(self, text ="StartPage",
 							command = lambda : controller.show_frame(StartPage))
 	
 		# putting the button in its place 
 		# by using grid
-		button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
 
 		# button to show frame 2 with text
 		# layout2
-		button2 = ttk.Button(self, text ="Page 2",
+        button2 = ttk.Button(self, text ="C",
 							command = lambda : controller.show_frame(Page2))
 	
 		# putting the button in its place by 
 		# using grid
-		button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
 
 
 
@@ -192,6 +191,7 @@ class Page1(tk.Frame):
 # third window frame page2
 class Page2(tk.Frame): 
 	def __init__(self, parent, controller):
+                
 		tk.Frame.__init__(self, parent)
 		label = ttk.Label(self, text ="Page 2", font = LARGEFONT)
 		label.grid(row = 0, column = 4, padx = 10, pady = 10)
@@ -219,3 +219,28 @@ class Page2(tk.Frame):
 app = D_and_D_App()
 app.mainloop()
 
+
+
+
+import tkinter as tk
+from tkinter import *
+from tkinter import ttk
+
+
+class app:
+    def __init__(self, master):
+        self.frame1 = Frame(root, width=300, height=300)
+        self.frame1.pack()
+        self.reg_txt = ttk.Label(root, text='page1')
+        self.reg_txt.place(x=88, y=30)
+class app2:
+    def __init__(self, master):
+        self.frame2 = Frame(root, width=300, height=300)
+        self.reg_txt2 = ttk.Label(root, text='page2')
+        self.reg_txt2.place(x=88, y=30)
+        self.frame2.pack()
+    
+root = Tk()
+a = app(root)
+a = app2(root)
+root.mainloop()

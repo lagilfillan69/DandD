@@ -26,12 +26,7 @@ class Player_Define :
                            ('Dragonborn',  'Intellegence') : 0,
                            ('Dragonborn',  'Wisdom') : 0,
                            ('Dragonborn',  'Charisma') : 0,
-
-
-                           
-                           
-                           
-                           
+ 
                            
                            }
     
@@ -58,12 +53,12 @@ class Player_Define :
         Charisma_Position = input("On a scale of 1 to 6, Charisma is : ")
 
         Ability_Ranking = []
-        Ability_Ranking[Strength_Position] = 'Strength'
-        Ability_Ranking[Dexterity_Position] = 'Dexterity'
-        Ability_Ranking[Consitution_Position] = 'Consitution'
-        Ability_Ranking[Intellegence_Position] = 'Intellegence'
-        Ability_Ranking[Wisdom_Position] = 'Wisdom'
-        Ability_Ranking[Charisma_Position] = 'Charisma'
+        Ability_Ranking[int(Strength_Position)] = 'Strength'
+        Ability_Ranking[int(Dexterity_Position)] = 'Dexterity'
+        Ability_Ranking[int(Consitution_Position)] = 'Consitution'
+        Ability_Ranking[int(Intellegence_Position)] = 'Intellegence'
+        Ability_Ranking[int(Wisdom_Position)] = 'Wisdom'
+        Ability_Ranking[int(Charisma_Position)] = 'Charisma'
         #where the least important trait is listed first, and most important trait is listed last
 
         # getting randomize ability score numbers
@@ -79,25 +74,26 @@ class Player_Define :
             self.Ability_Scores[Ability_Ranking[i]] =  Ability_Numbers[i]
         
         #add race adjustments
-        match Race: 
-            case 'Dragonborn':
-                self.Dragonborn()
-            case 'Dwarf' :
-                self.Dwarf()
-            case 'Elf' :
-                self.Elf()
-            case 'Gnome':
-                self.Gnome()
-            case 'HalfElf' :
-                self.HalfElf(Ability_Numbers[0], Ability_Numbers[1])
-            case 'Halfling' :
-                self.Halfling
-            case 'HalfOrc' :
-                self.HalfOrc()
-            case 'Human' :
-                self.Human()
-            case 'Tiefling':
+        if(Race == 'Dragonborn'):
+            self.Dragonborn()
+        elif(Race == 'Dwarf'):
+            self.Dwarf()
+        elif(Race =='Elf') :
+            self.Elf()
+        elif(Race == 'Gnome'):
+            self.Gnome()
+        elif(Race == 'HalfElf'):
+            self.HalfElf(Ability_Numbers[0], Ability_Numbers[1])
+        elif(Race == 'Halfling'):
+            self.Halfling
+        elif(Race == 'HalfOrc'):
+             self.HalfOrc()
+        elif(Race == 'Human'):
+            self.Human()
+        elif(Race == 'Tiefling'):
                 self.Tiefling()
+        #else()
+        #ADD EDGE CASE FAILURE
         
         
         #now using the ability scores we can calculate the ability modifiers
@@ -323,7 +319,8 @@ class Player_Define :
         #add safe guard if race and class arent chose
         return self.Ability_Scores
 
-        
-    def Level_Up(self):
-        #empty function for now
-        #will give the ability for players to increase certain traits
+    def Get_Hit_Points(self) :
+        return(self.Max_Hit_Points)
+    
+    def Get_Saving_Throw(self) :
+        return(self.Saving_Throws)
