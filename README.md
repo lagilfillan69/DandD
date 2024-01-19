@@ -21,9 +21,10 @@ My purpose with developing this application is to create a hybrid experience of 
 ## Current Porgress 
 
 **1/18/24**
-I took a break from this project for a while. Like many personal projects, this got thrown to the wayside for another project and lfie among other things. I just worked on adding another page to my GUI to start taking developing a barbaria
+I took a break from this project for a while. Like many personal projects, this got thrown to the wayside for another project and lfie among other things. I just worked on adding another page to my GUI to start taking developing a barbarians additions and integrating more the GUI. Still not ready to touch severs. Also, much to my fauly did not realize at first that you cannot turn a GUI into a an HTML style website. This is my first time working on front end development so my understanding is poor
 
-
+**12/28/23**
+Updated code format and fixed some spacing errors
 
 **12/22/23**
 
