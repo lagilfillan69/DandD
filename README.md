@@ -21,6 +21,7 @@ My purpose with developing this application is to create a hybrid experience of 
 ## Current Porgress 
 
 **12/22/26**
+
 After fighting with Apple OS not liking anything that isn't apple made, I finally got tkinter up and working! After watching various youtube videos I have a very basic outline of what the GUI stucture will look like and how I can pull data from user input. I'm spending most of today mostly just writing out with pen and paper, how I want the data to flow in / my overall hierachy / UX flow . I also need to do reserach on how to do multiple pages in tkinter so that once a character is created, game play can start.
 
 [Guide to Multiple Pages tkinter](https://www.geeksforgeeks.org/tkinter-application-to-switch-between-different-page-frames/#)
