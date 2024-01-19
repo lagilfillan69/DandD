@@ -1,5 +1,4 @@
 # different types of races
-
     # Dragonborn, Dwarf, Elf, Gnome, HalfElf, Halfing, HalfOrc, Human, Tiefling
 
 #different types of classes
@@ -12,14 +11,11 @@ from dice_roll import Dice
 
 
 class Player_Define :
-
-
+    #defining basic hit dice
     Hit_Dice = {'Barbarian' : 12, 'Bard' : 8, 'Cleric' : 8, 'Druid' : 8, 'Fighter' : 10, 'Monk' : 8, 
                 'Paladin' : 10, 'Ranger' : 10, 'Rouge' : 8, 'Sorcerer' : 6, 'Warlock' : '8', 'Wizard' : 6}
-    
-    Class_Modifiers = {}
+    Class_Modifiers = {'Barbarians' : {}}
     Race_Modifiers = {'Dragonborn' : {}, 'Dwarf' : {}, 'Elf' : {}, 'Gnome' : {}, 'HalfElf' : {}, 'Halfling' : {}, 'HalfOrc' : {}, 'Human' : {}, 'Tiefling' : {}}
-
     Race_Modifier_Data = { ('Dragonborn',  'Strength') : 0,
                            ('Dragonborn',  'Dexterity') : 0,
                            ('Dragonborn',  'Consitution') : 0,
@@ -29,20 +25,18 @@ class Player_Define :
  
                            
                            }
-    
-    
+
     def __init__(self,Class,Race):
         #class and race for internal use
         self.Class = Class
         self.Race = Race
        #pre establish dictionary for ability scores and hit dice
         self.Ability_Scores = dict()
-        
-
         #add in safe guard for either ties or out of bounds numbers 
-
         #getting user input on the distrubution of ability scores
         #this is really clunky, how can we make this a little more automated?
+        #how do we add this input to GUI 
+        #seperate functions 
         print("Please Rank The Follow Traits from Most Important [6] to least important [1]/n")
         print('Strength, Dexterity, Consitution, Intellegence, Wisdom, Charisma/n')
         Strength_Position = input("On a scale of 1 to 6, Strength is : ")
@@ -91,7 +85,7 @@ class Player_Define :
         elif(Race == 'Human'):
             self.Human()
         elif(Race == 'Tiefling'):
-                self.Tiefling()
+            self.Tiefling()
         #else()
         #ADD EDGE CASE FAILURE
         
@@ -145,8 +139,6 @@ class Player_Define :
         self.Modifiers['Performance'] = char_mod
         self.Modifiers['Persuasion'] = char_mod
          
-
-
         #saving throws are a dice roll used to reduce damage on your character and is a modifier to a dice value
         # has to be calculate after modifications
         #this is the generic, will change once the class functions are called
@@ -156,9 +148,6 @@ class Player_Define :
         self.Saving_Throws['Intellegence'] = self.Modifiers['Intellegence']
         self.Saving_Throws['Wisdom'] = self.Modifiers['Wisdom']
         self.Saving_Throws['Charisma'] = self.Modifiers['Charisma'] 
-
-
-        
         #This will eventually be a switch case but for now we are assuming that our player is only a barbarian
         self.Barbarian()
         
@@ -167,18 +156,12 @@ class Player_Define :
         # CHOOSES 2  Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival
 
         #hit points 
-        self.Max_Hit_Points = self.Hit_Dice[Class] + self.Modifiers['Consitution']
-        
+        self.Max_Hit_Points = self.Hit_Dice[Class] + self.Modifiers['Consitution']        
         #Armor class is determined by the type of armor a character wears, this requires a little more leg work so we are gonna treat this as a generic feature and assume
         #all of our characters are not wearing armor
         self.Armor_Class = 10 + self.Modifiers['Dexterity']
-
         #adding spell casting abilites as add magical classes
 
-        
-      
-    
-    
     #roll 4 times and combine the highest three
     def Ability_Roll(self):
         ability = []
@@ -187,8 +170,6 @@ class Player_Define :
         ability.sort()
         return(ability[1]+ability[2]+ability[3])
     
-
-
     # Different Race Modifications -- might get rid of these, they are too small
     def Dragonborn(self):
         self.Ability_Scores['Strength'] += 2
@@ -204,14 +185,12 @@ class Player_Define :
     def Elf(self):
         self.Ability_Scores['Dexterity'] += 2
         #plus 2 dexterity
-
         self.Speed = 30
 
     def Gnome(self) :
         #plus 2 intel
         self.Ability_Scores['Intellegence'] += 2
         self.Speed = 25
-
 
     def HalfElf(self, ability1, ability2) :
         #plus 2 charisma 
@@ -250,7 +229,7 @@ class Player_Define :
   # Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladinm Ranger, Rouge, Sourcer, Warlock, Wizard
 
     def Barbarian(self):
-
+    #how do we add this to GUI
         # modifing ability enhancements
         print("Please Choose 2 abilties to enhance : Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival /n")
         Choice1 = input("Choice 1 : ")
@@ -324,3 +303,5 @@ class Player_Define :
     
     def Get_Saving_Throw(self) :
         return(self.Saving_Throws)
+    
+    def Get_Speed(self) : 

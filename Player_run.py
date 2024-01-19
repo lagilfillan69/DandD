@@ -156,15 +156,29 @@ class StartPage(tk.Frame):
 
 class Page1(tk.Frame): 
     # right now we are only assuming the creation of a barbarian creature
-    def __init__(self,parent,controller): 
+
+    
+
+    def __init__(self,parent,controller):
+
+        self.Prof1 = ""
+        self.Prof2 = ""
+
         Char = Player_Define(Class,Race)
         tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text ="Character Create", font = LARGEFONT)
+        label = ttk.Label(self, text ="Chose two profiencies : ", font = LARGEFONT)
+        
+        select_top = ttk.Frame(master = self)
+        AH= ttk.Button(master = select_top, text = "Animal Handling" , command = self.set_prof("Animal Handling") )
+        At = ttk.Button(master = select_top, text = "Athletics", command = )
+        Int = ttk.Button(master = select_top, text = "Intimidation", command = )
+        HE = ttk.Button(master = select_top, text = 'Delete', command = self.set_prof(""))
+        
+    
         # pack this
-
         hitdice = ttk.Label(self, text = "Hit Dice : " & str(Char.Get_Hit_Points()))
 
-        
+
 
 
 		# button to show frame 2 with text
@@ -184,6 +198,11 @@ class Page1(tk.Frame):
 		# putting the button in its place by 
 		# using grid
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+    def set_proficency(self,new_prof):
+        if (len(self.Prof1) != 0) :
+            self.Prof2 = new_prof
+        elif(len(self.Prof1) == 0) :
+            self.Prof1 = new_prof      
 
 
 
